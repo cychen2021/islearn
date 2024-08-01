@@ -179,7 +179,10 @@ def hex_to_dec(
         if not hexadecimal.is_complete():
             return language.SemPredEvalResult(None)
 
-        decimal_str = str(hex_to_int(str(hexadecimal)))
+        try:
+            decimal_str = str(hex_to_int(str(hexadecimal)))
+        except ValueError:
+            return language.SemPredEvalResult(None)
 
         return language.SemPredEvalResult({
             decimal: language.DerivationTree(
