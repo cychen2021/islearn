@@ -1524,7 +1524,7 @@ def approximately_evaluate_abst_for(
         try:
             match evaluate_z3_expression(formula.formula):
                 case Success(value): translation = value
-                case Failure(error): raise error(error[0])
+                case Failure(error): raise error(error)
 
             # translation = evaluate_z3_expression(formula.formula)
             var_map: Dict[str, language.Variable] = {
