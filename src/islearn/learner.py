@@ -1559,7 +1559,7 @@ def approximately_evaluate_abst_for(
         except DomainError:
             return ThreeValuedTruth.false()
         except NotImplementedError:
-            if not any(not isinstance(symbol_assignment, tuple) for symbol_assignment in assignments.values()):
+            if not all(isinstance(symbol_assignment, tuple) for symbol_assignment in assignments.values()):
                 return ThreeValuedTruth.unknown()
             return is_valid(z3.substitute(
                 formula.formula,
