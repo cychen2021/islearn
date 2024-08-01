@@ -38,7 +38,10 @@ def internet_checksum(
         header.find_node(checksum_tree),
         language.DerivationTree.from_parse_tree(zero_checksum))
 
-    header_bytes: Tuple[int] = tuple(hex_to_bytes(str(header_wo_checksum)))
+    try:
+        header_bytes: Tuple[int] = tuple(hex_to_bytes(str(header_wo_checksum)))
+    except:
+        return language.SemPredEvalResult(None)
 
     checksum_value = int_to_hex(compute_internet_checksum(header_bytes)).upper() + " "
     if len(checksum_value) < 6:
@@ -145,7 +148,10 @@ def hex_to_dec(
         decimal_number = None
         hexadecimal_number = None
         if hexadecimal.is_complete():
-            hexadecimal_number = hex_to_int(str(hexadecimal))
+            try:
+                hexadecimal_number = hex_to_int(str(hexadecimal))
+            except:
+                return language.SemPredEvalResult(None)
         if decimal.is_complete():
             decimal_number = int(str(decimal))
 
@@ -181,7 +187,7 @@ def hex_to_dec(
 
         try:
             decimal_str = str(hex_to_int(str(hexadecimal)))
-        except ValueError:
+        except:
             return language.SemPredEvalResult(None)
 
         return language.SemPredEvalResult({
